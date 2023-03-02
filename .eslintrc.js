@@ -1,29 +1,22 @@
 module.exports = {
-  extends: ['universe', 'universe/shared/typescript-analysis', 'plugin:react-hooks/recommended'],
+  extends: [
+    "universe",
+    "universe/shared/typescript-analysis",
+    "plugin:react-hooks/recommended",
+  ],
   overrides: [
     {
-      files: ['*.ts', '*.tsx', '*.d.ts'],
+      files: ["*.ts", "*.tsx", "*.d.ts"],
       parserOptions: {
-        project: './tsconfig.json'
-      }
-    }
+        project: "./tsconfig.json",
+      },
+    },
   ],
   rules: {
-    'import/order': [
-      'error',
-      {
-        groups: [['builtin', 'external']],
-        'newlines-between': 'never'
-      }
-    ]
-  },
-  settings: {
-    'import/resolver': {
-      typescript: {} // this loads <rootdir>/tsconfig.json to ESLint
-    }
+    "import/order": 0,
   },
   /* for lint-staged */
   globals: {
-    __dirname: true
-  }
-}
+    __dirname: true,
+  },
+};

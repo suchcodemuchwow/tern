@@ -3,8 +3,8 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": "./",
-    "paths": {
-      "src/*": ["src/*"]
-    },
+    "typeRoots": [
+      "./types"
+    ]
   }
 }
