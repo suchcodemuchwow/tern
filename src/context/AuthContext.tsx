@@ -4,6 +4,7 @@ import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import { GoogleAuthRequestConfig } from "expo-auth-session/src/providers/Google";
 import { AuthRequestPromptOptions, AuthSessionResult } from "expo-auth-session";
+import axios from "axios";
 
 type signInGoogleFn = (
   options?: AuthRequestPromptOptions | undefined
@@ -23,7 +24,7 @@ WebBrowser.maybeCompleteAuthSession();
 export const AuthProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState("asd");
   const [userInfo, setUserInfo] = useState(null);
   const [request, response, signInGoogle] = Google.useAuthRequest(googleConfig);
 
@@ -32,16 +33,18 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({
       setToken(response.authentication?.accessToken ?? "");
     }
     if (token.length > 0) {
-      getUserInfo().catch((e) => alert("Unable to get user info"));
+      getUserInfo().finally(() => console.log("User info request"));
     }
   }, [response, token]);
 
   const getUserInfo = async () => {
-    const response = await fetch(googleUserInfoEndpoint, getHeader(token));
-
-    const user = await response.json();
-    console.table(user);
-    setUserInfo(user);
+    try {
+      const response = await axios(googleUserInfoEndpoint, getHeader(token));
+      const user = response.data;
+      setUserInfo(user);
+    } catch (e) {
+      console.warn("Unable to get user info");
+    }
   };
 
   return (
