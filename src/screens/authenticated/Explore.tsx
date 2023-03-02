@@ -1,9 +1,8 @@
-import { AuthContext, AuthContextType } from "../../context/AuthContext";
-import { Center, HStack } from "native-base";
-import React, { useContext } from "react";
-import { SearchScreenProps } from "src/navigation/AuthenticatedNavigator.types";
+import React from "react";
+import { Center } from "native-base";
 
-export function Search({ navigation: { navigate } }: SearchScreenProps) {
-  const { signOut } = useContext(AuthContext) as AuthContextType;
+import { ExploreScreenProps } from "../../navigation/AuthenticatedNavigator.types";
+
+export function Explore(props: ExploreScreenProps) {
   return <Center flex="1"></Center>;
 }
